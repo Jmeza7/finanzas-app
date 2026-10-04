@@ -1,5 +1,5 @@
-<button class="button" (click)="ingreso()"> Ingreso</button>
-<button class="button" (click)="gasto()"> Gasto</button>
+<button class="button" (click)="agregarMovimiento('ingreso')"> Ingreso</button>
+<button class="button" (click)="agregarMovimiento('gasto')"> Gasto</button>
 <button class="button" (click)="getSaldo()"> Ver Saldo</button>
 
 @for (item of movimientos(); track item.id) {
@@ -11,6 +11,6 @@
 <br>
 <br>
 
-@if(showSaldo){
+@if(showSaldo()){
     <h1> {{saldo()}} </h1>
 }

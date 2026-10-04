@@ -1,4 +1,4 @@
-import { Component, computed, Signal, signal } from '@angular/core';
+import { Component, computed, effect, Signal, signal } from '@angular/core';
 import { Movimiento } from '../movimiento';
 
 @Component({
@@ -8,18 +8,17 @@ import { Movimiento } from '../movimiento';
   templateUrl: './saldo.html',
 })
 export class Saldo {
-  showSaldo = signal<boolean>(false);
+
+  showSaldo = signal(false);
   movimientos = signal<Movimiento[]>([]);
   saldo = computed(() => {
-    let total = 0;
-    for (const m of this.movimientos()){
+    return this.movimientos().reduce((acc,m) => {
       if(m.tipo === 'ingreso'){
-        total = total + m.cantidad;
+        return acc + m.cantidad;
       }else{
-        total = total - m.cantidad;
+        return acc - m.cantidad;
       }
-    }
-    return total
+    },0)
   });
 
   estado = computed(() => {
@@ -33,30 +32,24 @@ export class Saldo {
     }
   })
 
-  ingreso(){
-    this.movimientos.update(v => {
-      const id = Date.now();
-      const cantidad = 10;
-      const tipo = 'ingreso';
-      return [...v, {id,cantidad,tipo }]
-    });
+
+  constructor(){
+    effect(() => {
+      console.log(this.estado());
+    })
   }
 
-  gasto(){
+  agregarMovimiento(ev:Movimiento['tipo']){
     this.movimientos.update(v => {
       const id = Date.now();
       const cantidad = 10;
-      const tipo = 'gasto';
+      const tipo = ev;
       return [...v, {id,cantidad,tipo }]
     });
   }
 
   getSaldo(){
-    if(this.showSaldo() === true){
-      this.showSaldo.set(false);
-    }else{
-      this.showSaldo.set(true);
-    }
+    this.showSaldo.update((v)=>!v);
   }
 
 }
