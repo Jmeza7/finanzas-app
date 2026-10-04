@@ -1,5 +1,6 @@
-import { Component, computed, effect, Signal, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { Movimiento } from '../movimiento';
+import { Movimientos } from '../services/movimientos';
 
 @Component({
   imports: [],
@@ -8,29 +9,12 @@ import { Movimiento } from '../movimiento';
   templateUrl: './saldo.html',
 })
 export class Saldo {
-
+  private readonly movimientosService = inject(Movimientos);
   showSaldo = signal(false);
-  movimientos = signal<Movimiento[]>([]);
-  saldo = computed(() => {
-    return this.movimientos().reduce((acc,m) => {
-      if(m.tipo === 'ingreso'){
-        return acc + m.cantidad;
-      }else{
-        return acc - m.cantidad;
-      }
-    },0)
-  });
+  movimientos = this.movimientosService.movimientos;
+  saldo = this.movimientosService.saldo;
 
-  estado = computed(() => {
-
-    if(this.saldo() > 0){
-      return  "En positivo" 
-    } else if (this.saldo() === 0){
-      return "En cero"
-    } else {
-      return "En negativo"
-    }
-  })
+  estado = this.movimientosService.estado;
 
 
   constructor(){
@@ -39,13 +23,8 @@ export class Saldo {
     })
   }
 
-  agregarMovimiento(ev:Movimiento['tipo']){
-    this.movimientos.update(v => {
-      const id = Date.now();
-      const cantidad = 10;
-      const tipo = ev;
-      return [...v, {id,cantidad,tipo }]
-    });
+  agregar(tipo:Movimiento['tipo']){
+    this.movimientosService.agregarMovimiento(tipo);
   }
 
   getSaldo(){
