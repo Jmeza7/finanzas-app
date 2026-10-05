@@ -11,7 +11,6 @@ import { Movimientos } from '../services/movimientos';
 export class Saldo {
   private readonly movimientosService = inject(Movimientos);
   showSaldo = signal(false);
-  movimientos = this.movimientosService.movimientos;
   saldo = this.movimientosService.saldo;
 
   estado = this.movimientosService.estado;

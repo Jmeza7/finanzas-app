@@ -1,0 +1,5 @@
+@for (item of movimientos(); track item.id) {
+  <p>{{ item.cantidad }} {{ item.tipo }}</p>
+} @empty {
+  <p>Aún no hay movimientos</p>
+}

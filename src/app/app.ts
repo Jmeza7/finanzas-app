@@ -1,9 +1,8 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Saldo } from './saldo/saldo';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [Saldo],
+  imports: [RouterLink, RouterOutlet],
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',
