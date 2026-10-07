@@ -1,10 +1,15 @@
-import { computed, Service, signal } from '@angular/core';
+import { computed, effect, inject, PLATFORM_ID, Service, signal } from '@angular/core';
 import { Movimiento } from '../movimiento';
+import { isPlatformBrowser } from '@angular/common';
+
+
+const STORAGE_KEY = 'movimientosHistory';
+
 
 @Service()
 export class Movimientos {
-
-    private readonly _movimientos = signal<Movimiento[]>([]);
+    private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+    private _movimientos = signal<Movimiento[]>(this.cargar());
     readonly movimientos = this._movimientos.asReadonly();
     saldo = computed(() => {
     return this.movimientos().reduce((acc,m) => {
@@ -25,6 +30,31 @@ export class Movimientos {
       return "En negativo"
     }
   })
+
+  constructor(){
+    effect(() => {
+      if(!this.isBrowser){
+        [];
+      }else{
+        const movChange = JSON.stringify(this._movimientos());
+        localStorage.setItem(STORAGE_KEY,movChange);
+      }
+
+    })
+  }
+
+    private cargar(): Movimiento[]{
+      if(!this.isBrowser){
+        return [];
+      }else{
+        const movimientosHistory = localStorage.getItem(STORAGE_KEY);
+        if(!movimientosHistory){
+          return [];
+        }else{
+          return JSON.parse(movimientosHistory);
+        }
+      }
+    }
 
     agregarMovimiento(ev:Movimiento['tipo']){
         this._movimientos.update(v => {
