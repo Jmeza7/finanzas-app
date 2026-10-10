@@ -11,6 +11,7 @@ export class Movimientos {
     private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
     private _movimientos = signal<Movimiento[]>(this.cargar());
     readonly movimientos = this._movimientos.asReadonly();
+    fullMovimiento: any;
     saldo = computed(() => {
     return this.movimientos().reduce((acc,m) => {
       if(m.tipo === 'ingreso'){
@@ -56,14 +57,11 @@ export class Movimientos {
       }
     }
 
-    agregarMovimiento(ev:Movimiento['tipo']){
-        this._movimientos.update(v => {
-        const id = Date.now();
-        const cantidad = 10;
-        const tipo = ev;
-        const concepto = "test";
-        return [...v, {id,cantidad,tipo, concepto }]
-        });
+    agregarMovimiento(detalles:Omit<Movimiento,'id'>){ 
+      const nuevo = {id : Date.now() , ...detalles};
+      this._movimientos.update(v => {
+        return [...v, nuevo]
+      });
     }
 
 }

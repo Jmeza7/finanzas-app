@@ -6,6 +6,8 @@
         <option value="ingreso"> Ingreso </option>
     </select>
 
+<button class="button" (click)="agregar()"> Anadir</button>
+<button class="button" (click)="getSaldo()"> Ver Saldo</button>
 <p> {{nuevoMovimiento().concepto}} .  {{nuevoMovimiento().cantidad}}  . {{nuevoMovimiento().tipo}} </p>
 
 @if(showSaldo()){

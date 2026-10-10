@@ -11,11 +11,12 @@ import { form, FormField, required } from '@angular/forms/signals';
 })
 export class Saldo {
   private readonly movimientosService = inject(Movimientos);
-  nuevoMovimiento = signal<Omit<Movimiento,'id'>>({
+  cleanMovimiento: Omit<Movimiento,'id'> = {
     concepto:'',
     cantidad:0,
     tipo:'ingreso'
-  })
+  }
+  nuevoMovimiento = signal<Omit<Movimiento,'id'>>(this.cleanMovimiento);
   movimientoForm = form(this.nuevoMovimiento);
   showSaldo = signal(false);
   saldo = this.movimientosService.saldo;
@@ -29,8 +30,10 @@ export class Saldo {
     })
   }
 
-  agregar(mov:Omit<Movimiento[],'id'>){
-    //this.movimientosService.agregarMovimiento();
+  agregar(){
+    const mov = this.nuevoMovimiento();
+    this.movimientosService.agregarMovimiento(mov);
+    this.nuevoMovimiento.set(this.cleanMovimiento);
   }
 
   getSaldo(){
