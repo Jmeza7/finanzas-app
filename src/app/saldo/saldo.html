@@ -1,6 +1,12 @@
-<button class="button" (click)="agregar('ingreso')"> Ingreso</button>
-<button class="button" (click)="agregar('gasto')"> Gasto</button>
-<button class="button" (click)="getSaldo()"> Ver Saldo</button>
+
+    <input type="text" placeholder="Concepto" [formField]="movimientoForm.concepto"/>
+    <input type="number" placeholder="Cantidad" [formField]="movimientoForm.cantidad"/> 
+    <select [formField]="movimientoForm.tipo"> 
+        <option value="gasto"> Gasto </option>
+        <option value="ingreso"> Ingreso </option>
+    </select>
+
+<p> {{nuevoMovimiento().concepto}} .  {{nuevoMovimiento().cantidad}}  . {{nuevoMovimiento().tipo}} </p>
 
 @if(showSaldo()){
     <h1> {{saldo()}} </h1>

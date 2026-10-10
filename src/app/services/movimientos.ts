@@ -61,7 +61,8 @@ export class Movimientos {
         const id = Date.now();
         const cantidad = 10;
         const tipo = ev;
-        return [...v, {id,cantidad,tipo }]
+        const concepto = "test";
+        return [...v, {id,cantidad,tipo, concepto }]
         });
     }
 
