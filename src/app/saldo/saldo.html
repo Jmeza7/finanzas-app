@@ -1,13 +1,26 @@
 
     <input type="text" placeholder="Concepto" [formField]="movimientoForm.concepto"/>
+    @if(movimientoForm.concepto().touched() && movimientoForm.concepto().invalid()){
+        @for (error of movimientoForm.concepto().errors(); track $index) {
+            <p> {{error.message}}</p>
+        }
+    }
+
     <input type="number" placeholder="Cantidad" [formField]="movimientoForm.cantidad"/> 
+    @if(movimientoForm.cantidad().touched() && movimientoForm.cantidad().invalid()){
+        @for (error of movimientoForm.cantidad().errors(); track $index) {
+            <p> {{error.message}}</p>
+        }
+    }
     <select [formField]="movimientoForm.tipo"> 
         <option value="gasto"> Gasto </option>
         <option value="ingreso"> Ingreso </option>
     </select>
 
-<button class="button" (click)="agregar()"> Anadir</button>
+<button class="button" [disabled]="movimientoForm().invalid()" (click)="agregar()"> Añadir</button>
 <button class="button" (click)="getSaldo()"> Ver Saldo</button>
+
+
 <p> {{nuevoMovimiento().concepto}} .  {{nuevoMovimiento().cantidad}}  . {{nuevoMovimiento().tipo}} </p>
 
 @if(showSaldo()){
