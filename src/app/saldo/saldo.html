@@ -20,9 +20,6 @@
 <button class="button" [disabled]="movimientoForm().invalid()" (click)="agregar()"> Añadir</button>
 <button class="button" (click)="getSaldo()"> Ver Saldo</button>
 
-
-<p> {{nuevoMovimiento().concepto}} .  {{nuevoMovimiento().cantidad}}  . {{nuevoMovimiento().tipo}} </p>
-
 @if(showSaldo()){
     <h1> {{saldo()}} </h1>
 }

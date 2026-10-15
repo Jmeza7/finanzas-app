@@ -64,4 +64,12 @@ export class Movimientos {
       });
     }
 
+    borrarMovimiento(id:number){
+      this._movimientos.update(v => {
+        return  v.filter( m => {
+          return m.id !== id;
+        })
+      });
+    }
+
 }

@@ -2,9 +2,10 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { Movimiento } from '../movimiento';
 import { Movimientos } from '../services/movimientos';
 import { form, FormField, required, min } from '@angular/forms/signals';
+import { MovimientoItem } from '../movimiento-item/movimiento-item';
 
 @Component({
-  imports: [FormField],
+  imports: [FormField, MovimientoItem],
   selector: 'app-saldo',
   styleUrl: './saldo.scss',
   templateUrl: './saldo.html',
@@ -17,6 +18,7 @@ export class Saldo {
     tipo:'ingreso'
   }
   nuevoMovimiento = signal<Omit<Movimiento,'id'>>(this.cleanMovimiento);
+  movimientos = this.movimientosService.movimientos;
   movimientoForm = form(this.nuevoMovimiento, (f) =>{
     required(f.concepto, {message:'El concepto es obligatorio'});
     min(f.cantidad, 0.5, {message:'La cantidad tiene que ser mayor a 0'})
