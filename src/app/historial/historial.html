@@ -1,4 +1,6 @@
-@for (item of movimientos(); track item.id) {
+<input placeholder="buscar" (input)="buscar($event)"/>
+
+@for (item of movimientosFiltrados(); track item.id) {
   <app-movimiento-item [movimiento]="item" (eliminar)="borrar($event)"></app-movimiento-item>
 } @empty {
   <p>Aún no hay movimientos</p>
