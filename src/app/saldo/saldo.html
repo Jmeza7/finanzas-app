@@ -23,3 +23,12 @@
 @if(showSaldo()){
     <h1> {{saldo()}} </h1>
 }
+
+<p> SALDO EN DOLARES</p>
+@if(datos.isLoading()){
+    <h1> Cargando tipo de cambio</h1>
+}@else if (datos.error() ) {
+    <h1> Saldo en dolares no disponible</h1>
+}@else{
+    <h1> {{saldoUSD() | currency: 'USD'}} </h1>
+}

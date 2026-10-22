@@ -1,11 +1,14 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Movimiento } from '../movimiento';
 import { Movimientos } from '../services/movimientos';
 import { form, FormField, required, min } from '@angular/forms/signals';
 import { MovimientoItem } from '../movimiento-item/movimiento-item';
+import { httpResource } from '@angular/common/http';
+import { CurrencyPipe } from '@angular/common';
+import { CambioUSD } from '../cambio-usd';
 
 @Component({
-  imports: [FormField, MovimientoItem],
+  imports: [FormField, CurrencyPipe],
   selector: 'app-saldo',
   styleUrl: './saldo.scss',
   templateUrl: './saldo.html',
@@ -25,9 +28,9 @@ export class Saldo {
   });
   showSaldo = signal(false);
   saldo = this.movimientosService.saldo;
-
+  datos = httpResource<CambioUSD>(() => 'https://api.frankfurter.dev/v2/rate/eur/usd');
   estado = this.movimientosService.estado;
-
+  saldoUSD = computed(() => this.datos.hasValue() ? this.saldo() * this.datos.value().rate : null);
 
   constructor(){
     effect(() => {
