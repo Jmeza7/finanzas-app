@@ -4,5 +4,6 @@ export const serverRoutes: ServerRoute[] = [
   {
     path: '**',
     renderMode: RenderMode.Prerender
-  }
+  },
+  { path: 'historial', renderMode: RenderMode.Client}
 ];

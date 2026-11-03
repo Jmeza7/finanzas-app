@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Auth } from './auth';
 
 @Component({
   imports: [RouterLink, RouterOutlet],
@@ -9,4 +10,13 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('finanzas-app');
+  private readonly authService = inject(Auth);
+  private router = inject(Router);
+
+  isSession = this.authService.isSession;
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(["/"]);
+  }
 }

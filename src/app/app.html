@@ -1,9 +1,14 @@
 <nav>
-    <a routerLink="/">Saldo</a>
+    <a routerLink="/saldo">Saldo</a>
     <br>
     <br>
     <a routerLink="/historial">Historial</a>
     <br>
     <br>
 </nav>
+@if (isSession()) {
+    <button class="button" (click)="logout()"> Salir</button>
+}@else {
+    <a routerLink="/">Login</a>
+}
 <router-outlet />
