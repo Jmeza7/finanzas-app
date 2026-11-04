@@ -10,7 +10,7 @@ import { Movimiento } from '../movimiento';
 export class MovimientoItem {
   
   movimiento = input.required<Movimiento>();
-  eliminar = output<number>();
+  eliminar = output<string>();
 
   borrarMovimiento(){
     this.eliminar.emit(this.movimiento().id);
