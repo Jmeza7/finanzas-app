@@ -1,5 +1,5 @@
 export interface Movimiento {
-    "id":number,
+    "id": string,
     "cantidad":number,
     "tipo": 'ingreso' | 'gasto',
     "concepto": string,

@@ -58,13 +58,13 @@ export class Movimientos {
     }
 
     agregarMovimiento(detalles:Omit<Movimiento,'id'>){ 
-      const nuevo = {id : Date.now() , ...detalles};
+      const nuevo = {id : crypto.randomUUID() , ...detalles};
       this._movimientos.update(v => {
         return [...v, nuevo]
       });
     }
 
-    borrarMovimiento(id:number){
+    borrarMovimiento(id:string){
       this._movimientos.update(v => {
         return  v.filter( m => {
           return m.id !== id;
