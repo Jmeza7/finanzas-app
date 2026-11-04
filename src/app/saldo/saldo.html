@@ -1,4 +1,3 @@
-
     <input type="text" placeholder="Concepto" [formField]="movimientoForm.concepto"/>
     @if(movimientoForm.concepto().touched() && movimientoForm.concepto().invalid()){
         @for (error of movimientoForm.concepto().errors(); track $index) {

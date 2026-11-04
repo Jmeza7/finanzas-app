@@ -26,7 +26,7 @@ export class Historial {
     return mov;
   })
 
-  borrar(id:number){
+  borrar(id:string){
     this.movimientosService.borrarMovimiento(id);
   }
 
