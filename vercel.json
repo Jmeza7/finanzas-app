@@ -1,0 +1,4 @@
+{
+  "outputDirectory": "dist/finanzas-app/browser",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.csr.html" }]
+}
