@@ -11,4 +11,7 @@
 }@else {
     <a routerLink="/">Login</a>
 }
+@if (mensajeError()) {
+    {{mensajeError()}}  <button class="button" (click)="cerrar()">X</button> 
+}
 <router-outlet />

@@ -28,7 +28,7 @@ export class Saldo {
   });
   showSaldo = signal(false);
   saldo = this.movimientosService.saldo;
-  datos = httpResource<CambioUSD>(() => 'https://api.frankfurter.dev/v2/rate/eur/usd');
+  datos = httpResource<CambioUSD>(() => 'https://api.frankfurter.dev/v2/rate/eur/abc');
   estado = this.movimientosService.estado;
   saldoUSD = computed(() => this.datos.hasValue() ? this.saldo() * this.datos.value().rate : null);
 
