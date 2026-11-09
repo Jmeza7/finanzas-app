@@ -19,8 +19,9 @@ export class Historial {
   busquedaRetrasada = toSignal(toObservable(this.busqueda).pipe(debounceTime(300)),{initialValue:''});
 
   movimientosFiltrados = computed(() => {
+    const texto = this.busquedaRetrasada().toLowerCase();
     const mov = this.movimientos().filter((mov) =>{
-      const res = mov?.concepto.toLowerCase().includes(this.busquedaRetrasada());
+      const res = mov?.concepto.toLowerCase().includes(texto);
       return res;
     })
     return mov;

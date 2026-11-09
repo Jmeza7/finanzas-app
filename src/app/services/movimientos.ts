@@ -11,7 +11,6 @@ export class Movimientos {
     private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
     private _movimientos = signal<Movimiento[]>(this.cargar());
     readonly movimientos = this._movimientos.asReadonly();
-    fullMovimiento: any;
     saldo = computed(() => {
     return this.movimientos().reduce((acc,m) => {
       if(m.tipo === 'ingreso'){
@@ -34,9 +33,7 @@ export class Movimientos {
 
   constructor(){
     effect(() => {
-      if(!this.isBrowser){
-        [];
-      }else{
+      if(this.isBrowser){
         const movChange = JSON.stringify(this._movimientos());
         localStorage.setItem(STORAGE_KEY,movChange);
       }

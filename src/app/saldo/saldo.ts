@@ -2,7 +2,6 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Movimiento } from '../movimiento';
 import { Movimientos } from '../services/movimientos';
 import { form, FormField, required, min } from '@angular/forms/signals';
-import { MovimientoItem } from '../movimiento-item/movimiento-item';
 import { httpResource } from '@angular/common/http';
 import { CurrencyPipe } from '@angular/common';
 import { CambioUSD } from '../cambio-usd';
