@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { Auth } from './auth';
-import { Notificaciones } from './notificaciones';
+import { Auth } from './core/auth/auth';
+import { Notificaciones } from './core/notificaciones/notificaciones';
 
 @Component({
   imports: [RouterLink, RouterOutlet],

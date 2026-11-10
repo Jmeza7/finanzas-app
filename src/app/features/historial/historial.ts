@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { Movimientos } from '../services/movimientos';
-import { MovimientoItem } from '../movimiento-item/movimiento-item';
+import { Movimientos } from '../../shared/services/movimientos';
+import { MovimientoItem } from './movimiento-item/movimiento-item';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime } from 'rxjs';
 

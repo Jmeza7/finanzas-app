@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { authGuard } from './auth-guard';
-import { Auth } from '../auth';
+import { Auth } from '../auth/auth';
 
 describe('authGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>

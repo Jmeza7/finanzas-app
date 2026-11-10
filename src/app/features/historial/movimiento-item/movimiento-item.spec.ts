@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 import { MovimientoItem } from './movimiento-item';
-import { Movimiento } from '../movimiento';
+import { Movimiento } from '../../../shared/models/movimiento';
 
 describe('MovimientoItem', () => {
   let fixture: ComponentFixture<MovimientoItem>;

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Historial } from './historial';
-import { Movimientos } from '../services/movimientos';
+import { Movimientos } from '../../shared/services/movimientos';
 
 describe('Historial', () => {
   let component: Historial;

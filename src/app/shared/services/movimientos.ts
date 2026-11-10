@@ -1,5 +1,5 @@
 import { computed, effect, inject, PLATFORM_ID, Service, signal } from '@angular/core';
-import { Movimiento } from '../movimiento';
+import { Movimiento } from '../models/movimiento';
 import { isPlatformBrowser } from '@angular/common';
 
 

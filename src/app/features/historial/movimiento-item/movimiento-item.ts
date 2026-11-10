@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Movimiento } from '../movimiento';
+import { Movimiento } from '../../../shared/models/movimiento';
 
 @Component({
   imports: [],
