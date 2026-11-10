@@ -1,0 +1,82 @@
+@use '../../../styles/breakpoints' as bp;
+
+:host {
+  display: block;
+}
+
+.saldo__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+
+  @include bp.movil {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+.saldo__formulario {
+  grid-column: 1 / -1;
+}
+
+.saldo__campos {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+
+  @include bp.movil {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.saldo__acciones {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+
+  @include bp.movil {
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+.resumen {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  border-top: 4px solid var(--color-marron);
+
+  &:last-child {
+    border-top-color: var(--color-verde);
+  }
+}
+
+.resumen__valor {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-marron);
+  font-variant-numeric: tabular-nums;
+}
+
+.resumen__valor--oculto {
+  letter-spacing: 0.15em;
+  color: var(--color-borde);
+}
+
+.resumen__estado {
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  color: var(--color-texto-suave);
+}
+
+.resumen__estado--error {
+  color: var(--color-error);
+}
+
+.resumen__nota {
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}

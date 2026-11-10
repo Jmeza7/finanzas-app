@@ -1,2 +1,10 @@
-<p> {{movimiento().concepto}} .  {{movimiento().cantidad}}  . {{movimiento().tipo}} </p>
-<button class="button" (click)="borrarMovimiento()"> Borrar Movimiento</button>
+<p class="mov__datos">
+  <span class="mov__concepto">{{ movimiento().concepto }}</span>
+  <span class="mov__tipo" [class.mov__tipo--ingreso]="movimiento().tipo === 'ingreso'">
+    {{ movimiento().tipo }}
+  </span>
+  <span class="mov__cantidad" [class.mov__cantidad--ingreso]="movimiento().tipo === 'ingreso'">
+    {{ movimiento().tipo === 'ingreso' ? '+' : '−' }}{{ movimiento().cantidad | currency: 'EUR' }}
+  </span>
+</p>
+<button type="button" class="btn btn--texto" (click)="borrarMovimiento()">Borrar</button>

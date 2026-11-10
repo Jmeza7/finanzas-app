@@ -1,33 +1,72 @@
-    <input type="text" placeholder="Concepto" [formField]="movimientoForm.concepto"/>
-    @if(movimientoForm.concepto().touched() && movimientoForm.concepto().invalid()){
-        @for (error of movimientoForm.concepto().errors(); track $index) {
-            <p> {{error.message}}</p>
-        }
-    }
+<section class="pagina">
+  <header>
+    <h1 class="pagina__titulo">Saldo</h1>
+    <p class="pagina__subtitulo">Registra tus ingresos y gastos y consulta el saldo actual.</p>
+  </header>
 
-    <input type="number" placeholder="Cantidad" [formField]="movimientoForm.cantidad"/> 
-    @if(movimientoForm.cantidad().touched() && movimientoForm.cantidad().invalid()){
-        @for (error of movimientoForm.cantidad().errors(); track $index) {
-            <p> {{error.message}}</p>
-        }
-    }
-    <select [formField]="movimientoForm.tipo"> 
-        <option value="gasto"> Gasto </option>
-        <option value="ingreso"> Ingreso </option>
-    </select>
+  <div class="saldo__grid">
+    <article class="tarjeta saldo__formulario">
+      <h2 class="tarjeta__titulo">Nuevo movimiento</h2>
 
-<button class="button" [disabled]="movimientoForm().invalid()" (click)="agregar()"> Añadir</button>
-<button class="button" (click)="getSaldo()"> Ver Saldo</button>
+      <div class="saldo__campos">
+        <div class="campo saldo__concepto">
+          <label for="concepto">Concepto</label>
+          <input id="concepto" type="text" placeholder="Ej. Nómina, alquiler…" [formField]="movimientoForm.concepto" />
+          @if (movimientoForm.concepto().touched() && movimientoForm.concepto().invalid()) {
+            @for (error of movimientoForm.concepto().errors(); track $index) {
+              <p class="campo__error">{{ error.message }}</p>
+            }
+          }
+        </div>
 
-@if(showSaldo()){
-    <h1> {{saldo()}} </h1>
-}
+        <div class="campo">
+          <label for="cantidad">Cantidad (€)</label>
+          <input id="cantidad" type="number" placeholder="0,00" [formField]="movimientoForm.cantidad" />
+          @if (movimientoForm.cantidad().touched() && movimientoForm.cantidad().invalid()) {
+            @for (error of movimientoForm.cantidad().errors(); track $index) {
+              <p class="campo__error">{{ error.message }}</p>
+            }
+          }
+        </div>
 
-<p> SALDO EN DOLARES</p>
-@if(datos.isLoading()){
-    <h1> Cargando tipo de cambio</h1>
-}@else if (datos.error() ) {
-    <h1> Saldo en dolares no disponible</h1>
-}@else{
-    <h1> {{saldoUSD() | currency: 'USD'}} </h1>
-}
+        <div class="campo">
+          <label for="tipo">Tipo</label>
+          <select id="tipo" [formField]="movimientoForm.tipo">
+            <option value="gasto">Gasto</option>
+            <option value="ingreso">Ingreso</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="saldo__acciones">
+        <button type="button" class="btn btn--primario" [disabled]="movimientoForm().invalid()" (click)="agregar()">
+          Añadir movimiento
+        </button>
+      </div>
+    </article>
+
+    <article class="tarjeta resumen">
+      <h2 class="tarjeta__titulo">Saldo actual</h2>
+      @if (showSaldo()) {
+        <p class="resumen__valor">{{ saldo() | currency: 'EUR' }}</p>
+      } @else {
+        <p class="resumen__valor resumen__valor--oculto">••••••</p>
+      }
+      <button type="button" class="btn btn--secundario" (click)="getSaldo()">
+        {{ showSaldo() ? 'Ocultar saldo' : 'Ver saldo' }}
+      </button>
+    </article>
+
+    <article class="tarjeta resumen">
+      <h2 class="tarjeta__titulo">Saldo en dólares</h2>
+      @if (datos.isLoading()) {
+        <p class="resumen__estado">Cargando tipo de cambio…</p>
+      } @else if (datos.error()) {
+        <p class="resumen__estado resumen__estado--error">Saldo en dólares no disponible</p>
+      } @else {
+        <p class="resumen__valor">{{ saldoUSD() | currency: 'USD' }}</p>
+      }
+      <p class="resumen__nota">Según el tipo de cambio EUR/USD del día.</p>
+    </article>
+  </div>
+</section>

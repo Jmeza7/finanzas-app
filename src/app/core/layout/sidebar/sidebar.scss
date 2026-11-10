@@ -1,0 +1,136 @@
+@use '../../../../styles/breakpoints' as bp;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-marron);
+  color: var(--color-blanco);
+  overflow: hidden;
+
+  // Escritorio: fijo bajo la barra superior, se pliega a una columna de iconos.
+  @include bp.escritorio {
+    position: sticky;
+    top: var(--altura-barra);
+    flex-shrink: 0;
+    width: var(--ancho-sidebar);
+    height: calc(100dvh - var(--altura-barra));
+    transition: width var(--transicion);
+  }
+
+  // Móvil: panel que se desliza desde la izquierda por encima del contenido.
+  @include bp.movil {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 30;
+    width: min(280px, 85vw);
+    transform: translateX(-100%);
+    transition: transform var(--transicion);
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+:host(.abierto-movil) {
+  @include bp.movil {
+    transform: translateX(0);
+  }
+}
+
+:host(.plegado) {
+  @include bp.escritorio {
+    width: var(--ancho-sidebar-plegado);
+
+    .sidebar__texto {
+      display: none;
+    }
+
+    .sidebar__enlace,
+    .sidebar__plegar {
+      justify-content: center;
+      padding-inline: 0;
+    }
+  }
+}
+
+.sidebar__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--altura-barra);
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+  @include bp.escritorio {
+    display: none;
+  }
+}
+
+.sidebar__titulo {
+  font-weight: 600;
+}
+
+.sidebar__cerrar {
+  font-size: 1.5rem;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  color: var(--color-blanco);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radio);
+  cursor: pointer;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 12px;
+  flex: 1;
+}
+
+.sidebar__enlace,
+.sidebar__plegar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--radio);
+  transition: background-color var(--transicion), color var(--transicion);
+
+  &:hover {
+    color: var(--color-blanco);
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.sidebar__enlace.activo {
+  color: var(--color-blanco);
+  background: var(--color-marron-oscuro);
+  box-shadow: inset 3px 0 0 var(--color-verde);
+}
+
+.sidebar__icono {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.sidebar__plegar {
+  font: inherit;
+  margin: 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+
+  @include bp.movil {
+    display: none;
+  }
+}

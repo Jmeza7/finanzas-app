@@ -1,7 +1,21 @@
-<input placeholder="buscar" (input)="buscar($event)"/>
+<section class="pagina">
+  <header>
+    <h1 class="pagina__titulo">Historial</h1>
+    <p class="pagina__subtitulo">Consulta y busca todos tus movimientos.</p>
+  </header>
 
-@for (item of movimientosFiltrados(); track item.id) {
-  <app-movimiento-item [movimiento]="item" (eliminar)="borrar($event)"></app-movimiento-item>
-} @empty {
-  <p>Aún no hay movimientos</p>
-}
+  <div class="tarjeta historial">
+    <div class="campo historial__buscador">
+      <label for="buscar" class="oculto-visual">Buscar movimientos</label>
+      <input id="buscar" type="search" placeholder="Buscar por concepto" (input)="buscar($event)" />
+    </div>
+
+    <div class="historial__lista">
+      @for (item of movimientosFiltrados(); track item.id) {
+        <app-movimiento-item [movimiento]="item" (eliminar)="borrar($event)"></app-movimiento-item>
+      } @empty {
+        <p class="historial__vacio">Aún no hay movimientos</p>
+      }
+    </div>
+  </div>
+</section>

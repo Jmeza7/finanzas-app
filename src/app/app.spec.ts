@@ -37,6 +37,36 @@ describe('App', () => {
     await fixture.whenStable();
     // Comprobar (Assert)
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('button')?.textContent).toContain('Salir');
+    expect(compiled.querySelector('.barra__sesion button')?.textContent).toContain('Salir');
+  });
+
+  it('el botón de menú abre el sidebar y la tecla Escape lo cierra', async () => {
+    // Preparar (Arrange)
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const sidebar = compiled.querySelector('app-sidebar')!;
+    // Actuar (Act)
+    compiled.querySelector<HTMLButtonElement>('.barra__menu')!.click();
+    await fixture.whenStable();
+    const abiertoTrasPulsar = sidebar.classList.contains('abierto-movil');
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    await fixture.whenStable();
+    // Comprobar (Assert)
+    expect(abiertoTrasPulsar).toBe(true);
+    expect(sidebar.classList).not.toContain('abierto-movil');
+  });
+
+  it('el botón de plegar alterna el sidebar plegado', async () => {
+    // Preparar (Arrange)
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    // Actuar (Act)
+    compiled.querySelector<HTMLButtonElement>('.sidebar__plegar')!.click();
+    await fixture.whenStable();
+    // Comprobar (Assert)
+    expect(fixture.componentInstance.sidebarPlegado()).toBe(true);
+    expect(compiled.querySelector('app-sidebar')!.classList).toContain('plegado');
   });
 });

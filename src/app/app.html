@@ -1,17 +1,44 @@
-<nav>
-    <a routerLink="/saldo">Saldo</a>
-    <br>
-    <br>
-    <a routerLink="/historial">Historial</a>
-    <br>
-    <br>
-</nav>
-@if (isSession()) {
-    <button class="button" (click)="logout()"> Salir</button>
-}@else {
-    <a routerLink="/">Login</a>
-}
-@if (mensajeError()) {
-    {{mensajeError()}}  <button class="button" (click)="cerrar()">X</button> 
-}
-<router-outlet />
+<header class="barra">
+  <button
+    type="button"
+    class="barra__menu"
+    aria-label="Abrir menú"
+    aria-controls="menu-lateral"
+    [attr.aria-expanded]="menuMovilAbierto()"
+    (click)="abrirMenuMovil()">
+    <span aria-hidden="true">☰</span>
+  </button>
+
+  <span class="barra__marca">Finanzas</span>
+
+  <div class="barra__sesion">
+    @if (isSession()) {
+      <button type="button" class="btn barra__boton" (click)="logout()">Salir</button>
+    } @else {
+      <a class="btn barra__boton" routerLink="/">Login</a>
+    }
+  </div>
+</header>
+
+<div class="cuerpo">
+  <app-sidebar
+    id="menu-lateral"
+    [abiertoMovil]="menuMovilAbierto()"
+    [plegado]="sidebarPlegado()"
+    (cerrar)="cerrarMenuMovil()"
+    (alternarPlegado)="alternarPlegado()" />
+
+  @if (menuMovilAbierto()) {
+    <div class="fondo" aria-hidden="true" (click)="cerrarMenuMovil()"></div>
+  }
+
+  <main class="contenido">
+    @if (mensajeError()) {
+      <div class="aviso" role="alert">
+        <span>{{ mensajeError() }}</span>
+        <button type="button" class="aviso__cerrar" aria-label="Cerrar aviso" (click)="cerrar()">×</button>
+      </div>
+    }
+    <router-outlet />
+  </main>
+</div>

@@ -1,8 +1,9 @@
 import { Component, input, output } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { Movimiento } from '../../../shared/models/movimiento';
 
 @Component({
-  imports: [],
+  imports: [CurrencyPipe],
   selector: 'app-movimiento-item',
   styleUrl: './movimiento-item.scss',
   templateUrl: './movimiento-item.html',

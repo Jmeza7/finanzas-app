@@ -1,1 +1,236 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles/breakpoints' as bp;
+
+// ---------------------------------------------------------------------------
+// Paleta: marrón (principal), verde (secundario), blanco (auxiliar)
+// ---------------------------------------------------------------------------
+:root {
+  --color-marron-oscuro: #3e2723;
+  --color-marron: #4e342e;
+  --color-marron-medio: #6d4c41;
+  --color-marron-claro: #efe9e4;
+
+  --color-verde: #2e7d32;
+  --color-verde-oscuro: #1b5e20;
+  --color-verde-claro: #e8f3e9;
+
+  --color-blanco: #ffffff;
+
+  --color-fondo: #f5f3f0;
+  --color-borde: #e0d9d2;
+  --color-texto: #2b2118;
+  --color-texto-suave: #6b5d52;
+
+  --color-error: #a63d32;
+  --color-error-claro: #f8ebe9;
+
+  --radio: 6px;
+  --sombra: 0 1px 2px rgba(62, 39, 35, 0.08), 0 2px 8px rgba(62, 39, 35, 0.06);
+  --altura-barra: 56px;
+  --ancho-sidebar: 240px;
+  --ancho-sidebar-plegado: 64px;
+  --transicion: 200ms ease;
+
+  --fuente: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+// ---------------------------------------------------------------------------
+// Base
+// ---------------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--fuente);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-texto);
+  background: var(--color-fondo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-verde);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-verde);
+  outline-offset: 2px;
+}
+
+.oculto-visual {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// ---------------------------------------------------------------------------
+// Página y tarjetas
+// ---------------------------------------------------------------------------
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.pagina__titulo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-marron);
+}
+
+.pagina__subtitulo {
+  margin-top: 4px;
+  color: var(--color-texto-suave);
+}
+
+.tarjeta {
+  background: var(--color-blanco);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 24px;
+
+  @include bp.movil {
+    padding: 16px;
+  }
+}
+
+.tarjeta__titulo {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+  margin-bottom: 16px;
+}
+
+// ---------------------------------------------------------------------------
+// Formularios
+// ---------------------------------------------------------------------------
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-marron);
+}
+
+.campo__error {
+  font-size: 0.8rem;
+  color: var(--color-error);
+}
+
+input,
+select {
+  font: inherit;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  color: var(--color-texto);
+  background: var(--color-blanco);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  transition: border-color var(--transicion), box-shadow var(--transicion);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-verde);
+    box-shadow: 0 0 0 3px var(--color-verde-claro);
+  }
+
+  &.ng-touched.ng-invalid {
+    border-color: var(--color-error);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Botones
+// ---------------------------------------------------------------------------
+.btn {
+  font: inherit;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 18px;
+  border: 1px solid transparent;
+  border-radius: var(--radio);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--transicion), border-color var(--transicion), color var(--transicion);
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn--primario {
+  color: var(--color-blanco);
+  background: var(--color-verde);
+
+  &:hover:not(:disabled) {
+    background: var(--color-verde-oscuro);
+  }
+}
+
+.btn--secundario {
+  color: var(--color-marron);
+  background: var(--color-blanco);
+  border-color: var(--color-marron-medio);
+
+  &:hover:not(:disabled) {
+    background: var(--color-marron-claro);
+  }
+}
+
+.btn--texto {
+  min-height: 32px;
+  padding: 4px 10px;
+  color: var(--color-texto-suave);
+  background: transparent;
+
+  &:hover:not(:disabled) {
+    color: var(--color-error);
+    background: var(--color-error-claro);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Animaciones reducidas
+// ---------------------------------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,114 @@
+@use '../styles/breakpoints' as bp;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.barra {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--altura-barra);
+  padding: 0 24px;
+  color: var(--color-blanco);
+  background: var(--color-marron-oscuro);
+  border-bottom: 3px solid var(--color-verde);
+
+  @include bp.movil {
+    padding: 0 12px;
+  }
+}
+
+.barra__menu {
+  font-size: 1.4rem;
+  width: 40px;
+  height: 40px;
+  color: var(--color-blanco);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radio);
+  cursor: pointer;
+
+  @include bp.escritorio {
+    display: none;
+  }
+}
+
+.barra__marca {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.barra__sesion {
+  margin-left: auto;
+}
+
+.barra__boton {
+  min-height: 34px;
+  padding: 4px 14px;
+  color: var(--color-blanco);
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.cuerpo {
+  display: flex;
+  align-items: flex-start;
+}
+
+.fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  background: rgba(30, 20, 16, 0.5);
+
+  @include bp.escritorio {
+    display: none;
+  }
+}
+
+.contenido {
+  flex: 1;
+  min-width: 0;
+  padding: 32px;
+
+  @include bp.movil {
+    padding: 16px;
+  }
+}
+
+.aviso {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1040px;
+  margin: 0 auto 24px;
+  padding: 12px 16px;
+  color: var(--color-error);
+  background: var(--color-error-claro);
+  border: 1px solid var(--color-error);
+  border-left-width: 4px;
+  border-radius: var(--radio);
+}
+
+.aviso__cerrar {
+  font-size: 1.25rem;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radio);
+  cursor: pointer;
+}

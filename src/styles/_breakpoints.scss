@@ -1,0 +1,14 @@
+// Punto de corte único entre móvil y escritorio.
+$escritorio-min: 768px;
+
+@mixin movil {
+  @media (max-width: ($escritorio-min - 0.02px)) {
+    @content;
+  }
+}
+
+@mixin escritorio {
+  @media (min-width: $escritorio-min) {
+    @content;
+  }
+}

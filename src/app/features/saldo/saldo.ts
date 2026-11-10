@@ -40,7 +40,7 @@ export class Saldo {
   agregar(){
     const mov = this.nuevoMovimiento();
     this.movimientosService.agregarMovimiento(mov);
-    this.nuevoMovimiento.set(this.cleanMovimiento);
+    this.movimientoForm().reset(this.cleanMovimiento);
   }
 
   getSaldo(){

@@ -1,0 +1,77 @@
+@use '../../../../styles/breakpoints' as bp;
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-borde);
+  transition: background-color var(--transicion);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &:hover {
+    background: var(--color-fondo);
+  }
+}
+
+.mov__datos {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 16px;
+
+  @include bp.movil {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 12px;
+  }
+}
+
+.mov__concepto {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mov__tipo {
+  justify-self: start;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--color-error);
+  background: var(--color-error-claro);
+  border-radius: 999px;
+
+  @include bp.movil {
+    grid-row: 2;
+  }
+}
+
+.mov__tipo--ingreso {
+  color: var(--color-verde-oscuro);
+  background: var(--color-verde-claro);
+}
+
+.mov__cantidad {
+  min-width: 110px;
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-error);
+
+  @include bp.movil {
+    min-width: 0;
+    grid-row: 1;
+    grid-column: 2;
+  }
+}
+
+.mov__cantidad--ingreso {
+  color: var(--color-verde);
+}
