@@ -6,7 +6,7 @@ export class Notificaciones {
     private _notificaciones = signal<string|null>(null);
     readonly notificaciones = this._notificaciones.asReadonly();
 
-    mostrarAvisoError(text:string|null){
+    mostrarAvisoError(text:string){
         this._notificaciones.set(text);
     }
 
